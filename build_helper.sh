@@ -31,7 +31,7 @@ if contains "$OPT" force; then
     automake --force-missing --add-missing --foreign
     autoconf
 fi
-if contains "$OPT" configure ||  contains "$OPT" noautogen; then
+if contains "$OPT" configure ||  contains "$OPT" noautogen && ! contains "$OPT" noconfigure; then
     ./configure $CONFIGURE_ARGS
 fi
 make -j`nproc`
