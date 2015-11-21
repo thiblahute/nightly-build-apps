@@ -158,7 +158,7 @@ for MODULE in $MODULES; do
 
     cd "$DIR"
     if [ "x$PREPARE" != "x" ] ; then
-        xdg-app build ../../app bash -c "$PREPARE"
+        xdg-app build --share=network ../../app bash -c "$PREPARE"
     fi
     if ! contains "$OPT" nohelper ; then
         xdg-app build ../../app ../../build_helper.sh "$OPT" "--prefix=/app $CONFIGURE_ARGS"
