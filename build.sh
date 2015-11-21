@@ -21,6 +21,7 @@ declare -A CONFIGURE
 declare -A SOURCES
 declare -A BRANCHES
 declare -A CUSTOM_PREPARE
+declare -A FORCE_REBUILD
 
 source "$DEFS"
 
@@ -111,6 +112,7 @@ mkdir -p build
 cd build
 for MODULE in $MODULES; do
     if [ "x${STARTAT}" != "x" ]; then
+      if ! contains "$FORCE_REBUILD" "$MODULE"; then
         if [ "x${STARTAT}" == "x${MODULE}" ]; then
             echo ========== Using cache from $MODULE ================
             tar xf ../cache/cache-$APPID-$MODULE.tar -C ../app
@@ -119,6 +121,7 @@ for MODULE in $MODULES; do
             echo ========== Ignoring $MODULE ================
         fi;
         continue;
+      fi
     fi
 
     echo ========== Building $MODULE ================
